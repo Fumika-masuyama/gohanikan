@@ -1,0 +1,64 @@
+
+<h3>新規投稿ページ</h3>
+<%= form_for @gourmet do |f| %>
+
+
+
+
+
+
+<%# データ型がstringで自由記述の入力フォーム %>
+<div class="field">
+    <%= f.label :お店の名前 %>
+    <%= f.text_field :name, :size => 30 %>
+</div>
+
+<%# データ型がintegerで数字のみを入力するフォーム %>
+<div class="field">
+    <%= f.label :人数  %>
+    <%= f.number_field :number, :size => 10 %>
+</div>
+
+<%# データ型がstringで選択式の入力フォーム %>
+<div class="field">
+    <%= f.label :利用目的  %>
+    <%= f.select :purpose, 
+    [["A", "A"], 
+    ["B", "B"], 
+    ["C", "C"]], include_blank: "選択して下さい" %>
+</div>
+
+<%# データ型がstringで選択式の入力フォーム %>
+<div class="field">
+    <%= f.label :場所  %>
+    <%= f.select :place, 
+    [["梅田", "梅田"], 
+    ["河原町", "河原町"], 
+    ["石橋", "石橋"]], include_blank: "選択して下さい" %>
+</div>
+
+<%# データ型がintegerで数字のみを入力するフォーム %>
+<div class="field">
+    <%= f.label :予算  %>
+    <%= f.number_field :budget, :size => 10 %>
+</div>
+
+<%# データ型がstringで選択式の入力フォーム %>
+<div class="field">
+    <%= f.label :ジャンル  %>
+    <%= f.select :genre, 
+    [["和食", "和食"], 
+    ["イタリアン", "イタリアン"], 
+    ["中華", "中華"], 
+    ["居酒屋", "居酒屋"], 
+    ["カフェ", "カフェ"]], include_blank: "選択して下さい" %>
+</div>
+
+<div class="field">
+    <%= f.label :photo %>
+    <p><%= f.file_field :photo %></p>
+</div>
+<%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "一覧に戻る", gourmets_path %>

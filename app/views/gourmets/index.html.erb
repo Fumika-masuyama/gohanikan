@@ -1,0 +1,80 @@
+<%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
+
+<%= link_to "新規投稿へ", new_gourmet_path %> 
+<h3>一覧ページ</h3>
+<div class="gourmets-container">
+<% @gourmets.each do |t| %>
+    <div class="gourmet">
+    <%= t.body %>
+    <%= t.created_at %>
+    <%= link_to "詳細へ", gourmet_path(t.id) %>
+    <%= link_to "編集する", edit_gourmet_path(t.id) %>
+    <%= button_to "削除する", gourmet_path(t.id), method: :delete %> 
+    <%= t.name %>
+    <%= t.number %>
+    <%= t.purpose %>
+    <%= t.place %>
+    <%= t.budget %>
+    <%= t.genre %>
+    <% if t.photo.attached? %>
+        <%= image_tag t.photo, size: '250x200'%>
+    </div>
+    <% end %>
+<% end %>
+</div>
+
+
+<h1>あなたが行くべき店はここだ！</h1>
+<%= search_form_for @q, url: search_gourmets_path do |f| %>
+
+<div>
+    <%= f.label :name_cont, 'お店の名前' %>
+    <%= f.search_field :name_cont %>
+</div>
+
+<div>
+    <%= f.label :number_eq, '人数' %>
+    <%= f.number_field :number_eq %>
+</div>
+
+<div>
+    <%= f.label :purpose_eq, '利用目的' %>
+    <%= f.select :purpose_eq, 
+        [["A", "A"], 
+        ["B", "B"], 
+        ["C", "C"]], include_blank: "選択して下さい" %>
+</div>
+
+<div>
+    <%= f.label :place_eq, '場所' %>
+    <%= f.select :place_eq, 
+        [["梅田", "梅田"], 
+        ["河原町", "河原町"], 
+        ["石橋", "石橋"]], include_blank: "選択して下さい" %>
+</div>
+
+<div>
+    <%= f.label :budget_lteq, '予算' %>
+    <%= f.radio_button :budget_lteq, nil %>指定しない
+    <%= f.radio_button :budget_lteq, '1000' %>1000円以下
+    <%= f.radio_button :budget_lteq, '2000' %>2000円以下
+    <%= f.radio_button :budget_lteq, '3000' %>3000円以下
+    <%= f.radio_button :budget_lteq, '4000' %>4000円以下
+    <%= f.radio_button :budget_gteq, '5000' %>5000円以上
+</div>
+
+<div>
+    <%= f.label :genre_eq, 'ジャンル' %>
+    <%= f.select :genre_eq, 
+        [["和食", "和食"], 
+        ["イタリアン", "イタリアン"], 
+        ["中華", "中華"], 
+        ["居酒屋", "居酒屋"], 
+        ["カフェ", "カフェ"]], include_blank: "選択して下さい" %>
+</div>
+
+<div>
+    <%= f.submit '検索' %>
+</div>
+
+<% end %>
